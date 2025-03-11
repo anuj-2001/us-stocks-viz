@@ -14,7 +14,8 @@ def store_in_duckdb(spark, csv_file):
     
     print(df)
     # Initialize DuckDB connection (in-memory)
-    con = duckdb.connect(database=":memory:")
+    database_file = "stocks.db"
+    con = duckdb.connect(database=database_file)
 
     # Store DataFrame in DuckDB (overwrite if exists)
     con.execute("CREATE TABLE IF NOT EXISTS stock_data AS SELECT * FROM df")
