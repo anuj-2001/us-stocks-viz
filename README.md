@@ -9,6 +9,7 @@ This project implements an Equal Weighted Index tracker that fetches stock data,
 - Construct an Equal Weighted Index
 - Track index performance and composition changes
 - Visualize stock index trends using Streamlit
+- Export the index data as csv or pdf
 
 ## File Structure
 
