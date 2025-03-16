@@ -49,9 +49,3 @@ streamlit run dashboard.py
 3. **Visualization**
 
    - `dashboard.py` provides a Streamlit-based dashboard for viewing index performance, composition, and summary metrics.
-
-## License
-
-This project is licensed under the MIT License.
-
-Give me a little more 
