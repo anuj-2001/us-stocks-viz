@@ -52,43 +52,66 @@ def fetch_stock_data(symbol):
 # List of US stock tickers (example)
 tickers = ["AAPL", "MSFT", "GOOGL", "AMZN", "TSLA"]
 
-import yfinance as yf
-dat = yf.Ticker("MSFT")
-dat = yf.Ticker("MSFT")
-print(f"Info: {dat.info}")
-print(f"Calendar: {dat.calendar}")
-print(f"Price Targets: {dat.analyst_price_targets}")
-print(f"Quaterly: {dat.quarterly_income_stmt}")
-print(f"History: {dat.history(period='1mo')}")
-print(f"Option chain: {dat.option_chain(dat.options[0]).calls}")
-data = yf.download(tickers, period="1mo", interval="1d")
-print(data)
-print(data.columns)
+# import yfinance as yf
+# dat = yf.Ticker("MSFT")
+# dat = yf.Ticker("MSFT")
+# print(f"Info: {dat.info}")
+# print(f"Calendar: {dat.calendar}")
+# print(f"Price Targets: {dat.analyst_price_targets}")
+# print(f"Quaterly: {dat.quarterly_income_stmt}")
+# print(f"History: {dat.history(period='1mo')}")
+# print(f"Option chain: {dat.option_chain(dat.options[0]).calls}")
+# data = yf.download(tickers, period="1mo", interval="1d")
+# print(data)
+# print(data.columns)
 
-# Reset index to bring the date column into the DataFrame
-data = data.reset_index()
+# # Reset index to bring the date column into the DataFrame
+# data = data.reset_index()
 
-# Ensure the correct date column name (check what it's called after reset_index)
-date_col = data.columns[0]  # This will pick the first column (which should be the date)
+# # Ensure the correct date column name (check what it's called after reset_index)
+# date_col = data.columns[0]  # This will pick the first column (which should be the date)
 
-# Melt the DataFrame to bring multi-index columns into rows
-df_melted = data.melt(id_vars=[date_col], var_name=['Price', 'Ticker'], value_name='Value')
+# # Melt the DataFrame to bring multi-index columns into rows
+# df_melted = data.melt(id_vars=[date_col], var_name=['Price', 'Ticker'], value_name='Value')
 
-# Rename the date column
-df_melted.rename(columns={date_col: 'Date'}, inplace=True)
+# # Rename the date column
+# df_melted.rename(columns={date_col: 'Date'}, inplace=True)
 
-# Pivot to get the required format
-df_final = df_melted.pivot(index=['Date', 'Ticker'], columns='Price', values='Value').reset_index()
+# # Pivot to get the required format
+# df_final = df_melted.pivot(index=['Date', 'Ticker'], columns='Price', values='Value').reset_index()
 
-# Display the transformed DataFrame
-print(df_final.columns)
-print(type(df_final['Ticker'][0]))
+# # Display the transformed DataFrame
+# print(df_final.columns)
+# print(type(df_final['Ticker'][0]))
 
-# print(data['Close']['AAPL']['2025-02-13'])
-# print(fetch_top_stocks("AAPL"))
+# # print(data['Close']['AAPL']['2025-02-13'])
+# # print(fetch_top_stocks("AAPL"))
 
-# Fetch data for all tickers
-# stock_data = [fetch_stock_data(ticker) for ticker in tickers]
-# print(stock_data)
+# # Fetch data for all tickers
+# # stock_data = [fetch_stock_data(ticker) for ticker in tickers]
+# # print(stock_data)
 
-# print(fetch_top_stocks("AAPL"))
+# # print(fetch_top_stocks("AAPL"))
+
+import duckdb
+con = duckdb.connect(database="stocks.db")
+
+
+# Check if schema exists
+schema_name = 'index'
+query = f"SELECT COUNT(*) FROM information_schema.schemata WHERE schema_name = '{schema_name}';"
+# print(con.execute("select * from index.performance;").fetchall())
+# print(con.execute("select * from index.constituents;").fetchall())
+
+con.execute("drop schema if exists index cascade;")
+# print(con.execute("select * from index.performance;").fetchall())
+# # Query for duplicates
+# query = """
+# SELECT ticker, date, COUNT(*) AS duplicate_count 
+# FROM stock_data 
+# GROUP BY ticker, date 
+# HAVING COUNT(*) > 1
+# """
+# print(con.execute(query).fetchall())
+
+

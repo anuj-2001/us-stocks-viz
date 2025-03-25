@@ -86,8 +86,8 @@ class EqualWeightedIndex:
         dates = self.get_dates()
         if not dates:
             raise ValueError("No stock data available.")
-
-        start_date = dates[-1] - timedelta(days=28)
+        dates.sort()
+        start_date = dates[-1] - timedelta(days=30)
         past_month_dates = [date for date in dates if start_date <= date <= dates[-1]]
 
         performance_data = {}
