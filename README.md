@@ -49,3 +49,7 @@ streamlit run dashboard.py
 3. **Visualization**
 
    - `dashboard.py` provides a Streamlit-based dashboard for viewing index performance, composition, and summary metrics.
+
+**A look at the dashboard:**
+![image](https://github.com/user-attachments/assets/1a70891d-4816-42ef-b1c2-7bd736e39e80)
+
