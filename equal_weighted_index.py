@@ -98,7 +98,7 @@ class EqualWeightIndex:
         if self._is_first_day():
             self._initialize_index(top100)
         else:
-            self._rebalance_index(top100, current_df, prev_date)
+            self._rebalance_index(top100, current_df, prev_date) # had to rebalance only when the portfolio composition changes?
             
         self._update_performance(prev_date)
         
